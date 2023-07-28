@@ -20,20 +20,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5+ef%m4y55#(3%l_#69z#^*z+2tj4=zo+&gw+zg&rf#fq$%f!v'
+SECRET_KEY = 'django-insecure-vrbfj^x4!t1y#bx62--h&_bxs5t8#@i5tgr^7ne@ztfb2xsf!z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['96.255.194.191', 'localhost', '127.0.0.1']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'corsheaders',
     'rest_framework',
-    'api',
+    'corsheaders',
+    'api', # your application   
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +43,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -54,8 +52,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
+#CORS_ALLOWED_ORIGINS = ["*"]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost",
+    "http://96.255.194.191",
+    "http://protriever.org",
 ]
 
 ROOT_URLCONF = 'server.urls'

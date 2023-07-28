@@ -8,7 +8,7 @@ const footerStyle = {
 const Footer = () => (
   <footer style={footerStyle} className="footer mt-auto py-3">
     <div className="container">
-      <span>National Institutes of Health & Massachusetts Institute of Technology @ Copyright 2023</span>
+    <em>National Institutes of Health & Massachusetts Institute of Technology © 2023</em>
     </div>
   </footer>
 );

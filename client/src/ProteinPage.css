@@ -1,0 +1,37 @@
+/* ProteinPage.css */
+
+.protein-page-container {
+  border: 1px solid black; /* change the color as you prefer */
+  padding: 10px; /* optional: for some spacing between the border and the content */
+}
+
+.protein-table {
+    display: flex;
+    flex-direction: column;
+    margin: 1em 0;
+    width: 100%;
+  }
+    
+  .table-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table-cell {
+    flex-basis: 50%;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em 0;
+    margin-bottom: 20px;
+  }
+  
+  .checkbox-group label {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
