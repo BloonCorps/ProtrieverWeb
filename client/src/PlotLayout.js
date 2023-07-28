@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PlotComponent from './PlotComponent';
-import './App.css';
+import './PlotLayout.css';
 import Profile from './Profile';
-import Navbar from './Navbar';
-import Footer from './Footer';
+import Layout from './layout/Layout';
 import ProteinPage from './ProteinPage';
 
 class PlotLayout extends Component {
@@ -52,28 +51,24 @@ class PlotLayout extends Component {
     const {data, plotWidth, plotHeight, hoveredNode, proteinData} = this.state;  // Add proteinData to your destructured state
   
     return (
-      <div className="App" style={{display: 'flex', flexDirection: 'column', height: '100vh'}}>
-        <Navbar />
-        <div style={{display: 'flex', flexGrow: 1}}>
-          <div style={{width: plotWidth, height: plotHeight}}>
-            <PlotComponent 
-              data={data} 
-              onHover={this.handleHover} 
-              plotWidth={plotWidth} 
-              plotHeight={plotHeight}
-            />
-          </div>
-          <div style={{ width: "100%" }}>
-              <Profile data={hoveredNode} />
-          </div>
+      <Layout>
+        <div style={{width: plotWidth, height: plotHeight}}>
+          <PlotComponent 
+            data={data} 
+            onHover={this.handleHover} 
+            plotWidth={plotWidth} 
+            plotHeight={plotHeight}
+          />
+        </div>
+        <div style={{ width: "100%" }}>
+            <Profile data={hoveredNode} />
         </div>
         {
-          <div className="protein-page-container">
+          /* <div className="protein-page-container">
             <ProteinPage proteinData={proteinData} />
-          </div>
+          </div> */
         }
-        <Footer />
-      </div>
+      </Layout>
     );
   }
 }

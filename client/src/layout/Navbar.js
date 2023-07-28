@@ -25,13 +25,13 @@ const Navbar = () => {
               Search
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a className="dropdown-item" href="#">By HGNC Name</a>
-              <a className="dropdown-item" href="#">By Sequence</a>
-              <a className="dropdown-item" href="#">By Functional Domain</a>
+              <a className="dropdown-item" href="search/">By HGNC Name</a>
+              <a className="dropdown-item" href="search/">By Sequence</a>
+              <a className="dropdown-item" href="search/">By Functional Domain</a>
             </div>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">Interactive View</a>
+            <a className="nav-link" href="/">Interactive View</a>
           </li>
         </ul>
       </div>

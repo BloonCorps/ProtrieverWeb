@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-vrbfj^x4!t1y#bx62--h&_bxs5t8#@i5tgr^7ne@ztfb2xsf!z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['96.255.194.191', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['96.255.194.191', 'localhost', '127.0.0.1', 'protriever.org', '156.40.252.11']
 
 # Application definition
 
@@ -58,6 +58,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost",
     "http://96.255.194.191",
     "http://protriever.org",
+    "http://156.40.252.11", #seongyong's stuff
 ]
 
 ROOT_URLCONF = 'server.urls'

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Navbar from './layout/Navbar';
+import Footer from './layout/Footer';
 import './SearchLayout.css';
 
 class SearchLayout extends Component {
@@ -18,6 +20,7 @@ class SearchLayout extends Component {
   render() {
     return (
       <div className="search-layout">
+        <Navbar />
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -28,9 +31,11 @@ class SearchLayout extends Component {
           />
           <button type="submit" className="search-button">Search</button>
         </form>
+        <Footer />
       </div>
     );
   }
 }
 
 export default SearchLayout;
+
