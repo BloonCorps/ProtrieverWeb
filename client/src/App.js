@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PlotLayout from './PlotLayout';
+import SearchLayout from './SearchLayout';
 
 class App extends React.Component {
   render() {
