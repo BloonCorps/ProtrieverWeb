@@ -1,9 +1,11 @@
 .layout-container {
-    text-align: center;
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* This should fill the whole height of the viewport */
+}
 
 .App-logo {
     height: 40vmin;
     pointer-events: none;
-  }
+}
   

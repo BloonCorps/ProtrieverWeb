@@ -1,11 +1,12 @@
 import React from 'react';
-import './Navbar.css'; // Import the css file
+import './Navbar.css';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-custom">
       <a className="navbar-brand" href="#">
-        <img src="logo32.png" alt="Protriever Logo"/> Protriever
+        <img src="/logo32.png" alt="Logo"/> Protriever
       </a>
       <button
         className="navbar-toggler"
@@ -25,9 +26,9 @@ const Navbar = () => {
               Search
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a className="dropdown-item" href="search/">By HGNC Name</a>
-              <a className="dropdown-item" href="search/">By Sequence</a>
-              <a className="dropdown-item" href="search/">By Functional Domain</a>
+              <Link className="dropdown-item" to="/search/">By HGNC Name</Link>
+              <Link className="dropdown-item" to="/search/">By Sequence</Link>
+              <Link className="dropdown-item" to="/search/">By Functional Domain</Link>
             </div>
           </li>
           <li className="nav-item">

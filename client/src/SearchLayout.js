@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Navbar from './layout/Navbar';
-import Footer from './layout/Footer';
+import Layout from './layout/Layout';
 import './SearchLayout.css';
 
 class SearchLayout extends Component {
@@ -19,23 +18,24 @@ class SearchLayout extends Component {
 
   render() {
     return (
-      <div className="search-layout">
-        <Navbar />
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={this.state.searchTerm}
-            onChange={this.handleChange}
-            className="search-input"
-          />
-          <button type="submit" className="search-button">Search</button>
-        </form>
-        <Footer />
-      </div>
+      <Layout>
+        <div className="search-layout">
+          <form onSubmit={this.handleSubmit} style={{display: 'flex', flexDirection: 'row'}}>
+            <input
+              type="text"
+              placeholder="Search By HGNC Name..."
+              value={this.state.searchTerm}
+              onChange={this.handleChange}
+              className="search-input"
+            />
+            <button type="submit" className="search-button">Search</button>
+          </form>
+        </div>
+      </Layout>
     );
   }
 }
 
 export default SearchLayout;
+
 

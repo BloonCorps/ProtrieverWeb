@@ -20,10 +20,10 @@ class PlotComponent extends PureComponent {
       layout: {
         ...this.state.layout,
         margin: {
-          l: this.props.plotWidth * 0.05, // Left margin
-          r: this.props.plotWidth * 0.05, // Right margin
-          b: this.props.plotHeight * 0.05, // Bottom margin
-          t: this.props.plotHeight * 0.05, // Top margin
+          l: this.props.plotWidth * 0.06, // Left margin
+          r: this.props.plotWidth * 0.06, // Right margin
+          b: this.props.plotHeight * 0.06, // Bottom margin
+          t: this.props.plotHeight * 0.06, // Top margin
           pad: 10 // Padding
         }
       }

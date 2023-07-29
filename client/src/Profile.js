@@ -3,7 +3,7 @@ import React from 'react';
 const Profile = ({data}) => {
     if(!data) {
       return (
-        <div className="card" style={{ width: "100%", height: "100vh" }}>
+        <div className="card" style={{ width: "100%", height: "100%"}}>
             <h5 className="card-header">Instructions</h5>
             <div className="card-body">
                 <p className="card-text">The data on the left plot is loading. 
@@ -16,7 +16,7 @@ const Profile = ({data}) => {
     }
 
     return (
-        <div className="card" style={{ width: "100%", height: "100vh" }}>
+        <div className="card" style={{ width: "100%", height: "100%"}}>
             <h5 className="card-header">Name: {data.alias}</h5>
             <div className="card-body">
                 <p className="card-text">ID: {data.id}</p>
