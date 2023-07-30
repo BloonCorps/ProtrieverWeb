@@ -5,5 +5,5 @@ from . import views
 
 urlpatterns = [
     path('data/', get_data, name='get_data'),
-     path('search/', views.SearchAPI.as_view(), name='search_api'),
+    path('search/', views.search_sequence, name='search_sequence'),
 ]

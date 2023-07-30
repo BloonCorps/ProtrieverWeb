@@ -9,7 +9,7 @@ class App extends React.Component {
     return (
       <Router>
         <Routes>
-          <Route path="/" element={<PlotLayout />}/>
+          <Route path="/" element={<PlotLayout/>}/>
           <Route path="/search" element={<SearchLayout/>}/>
           <Route path="/menu" element={<MenuLayout/>}/>
         </Routes>
