@@ -9,8 +9,7 @@ import torch
 import faiss
 from Protriever.models.search import *
 
-@require_http_methods(["GET"])  # This decorator ensures that only GET requests are allowed
-def get_domain_indices(request):
+def get_domain_indxs(request):
     """
     Input: name of a domain or motif.
     Output: indicies of proteins with that name or motif.

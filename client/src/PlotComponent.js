@@ -1,7 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import Plot from 'react-plotly.js';
+import AppContext from './AppContext';
 
-class PlotComponent extends PureComponent {
+class PlotComponent extends Component {
+  static contextType = AppContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -30,6 +33,16 @@ class PlotComponent extends PureComponent {
     });
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.context.selectedDomains !== snapshot) {
+      this.forceUpdate();
+    }
+  }
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    return this.context.selectedDomains;
+  }
+
   handleRelayout = (layoutChange) => {
     this.setState((prevState) => ({
       layout: {
@@ -40,30 +53,35 @@ class PlotComponent extends PureComponent {
   };
 
   render() {
+    console.log('Rendering PlotComponent'); // Let's log every render of PlotComponent
+
     const { data, onHover } = this.props;
+    const { selectedDomains } = this.context; // Get selectedDomains from context
     const { layout } = this.state;
 
+    const colors = data.map((point, index) => selectedDomains.includes(index) ? 'red' : 'black');
+    console.log('Selected Domains in plot component:', selectedDomains); // Add this line
+      
     return (
-      <Plot
+        <Plot
         data={[
-          {
+            {
             x: data.map(point => point.t_sne[0]),
             y: data.map(point => point.t_sne[1]),
             mode: 'markers',
             type: 'scattergl',
-            marker: {size: 5, color: 'black', opacity: 0.2} 
-          }
+            marker: {size: 5, color: colors, opacity: 0.2} 
+            }
         ]}
         layout={layout}
         config={{ displayModeBar: true, scrollZoom: true }} // Make the modebar always visible
         onHover={onHover}
         onRelayout={this.handleRelayout}
-        onClick = {this.props.onClick}
-      />
+        onClick={this.props.onClick}
+        />
     );
   }
 }
 
 export default PlotComponent;
-
 
