@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Layout from './layout/Layout';
+import Layout from '../Layout/Layout';
 import './SearchLayout.css';
 import DataTable from './DataTable';
 import LoadingIndicator from './LoadingIndicator';

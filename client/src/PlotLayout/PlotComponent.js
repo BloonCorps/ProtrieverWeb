@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Plot from 'react-plotly.js';
-import AppContext from './AppContext';
+import AppContext from '../AppContext';
 
 class PlotComponent extends Component {
   static contextType = AppContext;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import PlotLayout from './PlotLayout';
-import SearchLayout from './SearchLayout';
-import MenuLayout from './MenuLayout';
+import PlotLayout from './PlotLayout/PlotLayout';
+import SearchLayout from './SearchLayout/SearchLayout';
+import MenuLayout from './PlotLayout/MenuLayout';
 
 class App extends React.Component {
   render() {

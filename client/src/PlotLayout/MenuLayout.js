@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import './MenuLayout.css';
 import DropdownMenu from './DropdownMenu';
-import AppContext from './AppContext';
+import AppContext from '../AppContext';
 
 const MenuLayout = () => {
   const { selectedDomains, onSelectDomain, updateSelectedDomains } = useContext(AppContext);

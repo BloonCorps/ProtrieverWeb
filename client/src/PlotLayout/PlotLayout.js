@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PlotComponent from './PlotComponent';
 import Profile from './Profile';
-import Layout from './layout/Layout';
-import AppContext from './AppContext';
+import Layout from '../Layout/Layout';
+import AppContext from '../AppContext';
 import MenuLayout from './MenuLayout';
 
 class PlotLayout extends Component {
