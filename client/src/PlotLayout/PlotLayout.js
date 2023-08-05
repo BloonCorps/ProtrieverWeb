@@ -13,7 +13,6 @@ class PlotLayout extends Component {
     plotWidth: window.innerWidth * 0.55,
     profileWidth: window.innerWidth * 0.25,
     plotHeight: window.innerHeight * 0.9,
-    proteinData: { name: "No protein selected", function: "No protein selected" },
     selectedDomains: []
   };
 
@@ -40,10 +39,6 @@ class PlotLayout extends Component {
   handleHover = (event) => {
     const pointIndex = event.points[0].pointIndex;
     this.setState({ hoveredNode: this.state.data[pointIndex] });
-  }
-
-  handleClick = () => {
-    this.setState({ proteinData: this.state.hoveredNode });
   }
 
   updateSelectedDomains = (updatedDomains) => {

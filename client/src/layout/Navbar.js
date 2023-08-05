@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-custom">
-      <a className="navbar-brand" href="#">
+      <a className="navbar-brand" href="/">
         <img src="/logo32.png" alt="Logo"/> Protriever
       </a>
       <button
