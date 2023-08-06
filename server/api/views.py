@@ -29,7 +29,7 @@ def get_data(request):
     data = cache.get('data')
     
     if data is None:
-        dataset = load_from_disk('9606') #server is run from the upper directory
+        dataset = load_from_disk('Protriever/src/data/processed/HFAll/9606/') #server is run from the upper directory
         columns_to_include = ['id', 'annotation', 'alias', 'seq_len', 't_sne']
         data = [{col: row[col] for col in columns_to_include} for row in dataset]
         cache.set('data', data)
