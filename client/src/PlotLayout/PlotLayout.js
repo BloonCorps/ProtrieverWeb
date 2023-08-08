@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PlotComponent from './PlotComponent';
 import Profile from './Profile';
 import Layout from '../Layout/Layout';
 import AppContext from '../AppContext';
 import MenuLayout from './MenuLayout';
 
-class PlotLayout extends Component {
+class PlotLayout extends PureComponent {
   state = {
     data: [],
     hoveredNode: null,
@@ -36,16 +36,22 @@ class PlotLayout extends Component {
     window.removeEventListener('resize', this.handleResize);
   }
 
-  handleHover = (event) => {
-    const pointIndex = event.points[0].pointIndex;
-    this.setState({ hoveredNode: this.state.data[pointIndex] });
-  }
+  handleHover = (event, originalIndex) => {
+    console.log('Hover event:', event);
+    console.log('Original index:', originalIndex);
+    const hoveredNode = {...this.state.data[originalIndex]};
+    console.log('New hoveredNode:', hoveredNode);
+    this.setState({ hoveredNode }, () => console.log('hoveredNode state after update:', this.state.hoveredNode));
+  };  
+  
 
   updateSelectedDomains = (updatedDomains) => {
     this.setState({ selectedDomains: updatedDomains });
   }
 
   render() {
+    console.log('hoveredNode in PlotLayout:', this.state.hoveredNode);
+
     const { data, menuWidth, plotWidth, profileWidth, plotHeight, hoveredNode, proteinData, selectedDomains } = this.state;
     
     const contextValue = {
@@ -94,7 +100,7 @@ class PlotLayout extends Component {
               />
             </div>
             <div style={{ width: profileWidth, height: plotHeight, overflow: 'auto' }}>
-              <Profile data={hoveredNode} />
+              <Profile data={hoveredNode} key={hoveredNode ? hoveredNode.id : 'default'} />
             </div>
           </div>
         </Layout>

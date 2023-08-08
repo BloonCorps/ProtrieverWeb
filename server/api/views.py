@@ -7,23 +7,52 @@ from django.views.decorators.http import require_http_methods
 from esm import pretrained
 import torch
 import faiss
+from Protriever.src.databases.alias_to_index import retrieve_indices
+from datasets import concatenate_datasets
+
 from Protriever.models.search import *
+
+def get_domain_motifs_list(request):
+    """
+    Input: None
+    Output: List of names of motifs and domains within humans
+    """
+    data = load_from_disk('Protriever/src/data/processed/UniProtKB/domains/')
+    domains = data['domain']['name']
+    motifs = data['motif']['name']
+
+    return JsonResponse({"domains": domains, "motifs": motifs})
 
 def get_domain_indxs(request):
     """
     Input: name of a domain or motif.
-    Output: indicies of proteins with that name or motif.
+    Output: indices of proteins with that name or motif.
     """
     # Get 'name' parameter from the request
     domain_name = request.GET.get('name', None)
 
+    data = load_from_disk('Protriever/src/data/processed/UniProtKB/domains/')
+    data = concatenate_datasets([data['motif'], data['domain']])
+    
     if domain_name is None:
         return JsonResponse({"error": "No domain name provided."}, status=400)
 
-    indices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    # Filter 'motif' dataset on the 'name' column
+    filtered_dataset = data.filter(lambda x: x['name'] == domain_name)
 
-    # Return the indices in the response
-    return JsonResponse({"indices": indices})
+    # If no rows matched the filter, return an error
+    if len(filtered_dataset) == 0:
+        return JsonResponse({"error": "No motif found with the provided name."}, status=404)
+
+    # Get 'proteins' values for the filtered rows
+    proteins = filtered_dataset['proteins'][0]  # assuming 'proteins' is a list
+
+    indices = retrieve_indices(proteins)
+
+    # Clean 'indices' to be integers and exclude null values
+    indices = [int(idx) for idx in indices if idx is not None]
+
+    return JsonResponse({"indices": indices, "proteins": proteins})
 
 def get_data(request):
     data = cache.get('data')
@@ -34,6 +63,7 @@ def get_data(request):
         data = [{col: row[col] for col in columns_to_include} for row in dataset]
         cache.set('data', data)
 
+    print(data[8006])
     return JsonResponse(data, safe=False)
 
 def search_sequence(request):
@@ -41,14 +71,15 @@ def search_sequence(request):
     if type(query) is str:
         query = [query]
 
+    #model
     model = cache.get('model')
     batch_converter = cache.get('batch_converter')
-
+    #data
     dataset = cache.get('dataset_whole')
     index = cache.get('faiss_index')
 
     if dataset is None:
-        dataset = load_from_disk('9606') #server is run from the upper directory
+        dataset = load_from_disk('Protriever/src/data/processed/HFAll/9606/') #server is run from the upper directory
         cache.set('dataset_whole', dataset)
 
     if model is None or batch_converter is None:
@@ -68,15 +99,6 @@ def search_sequence(request):
     idx = retrieve_similar_sequences(query, dataset, return_num=200, 
                                      batch_converter=batch_converter, model=model)
 
-    result = indices_to_info(idx, dataset, annotation_len=400)
+    result = indices_to_info(idx, dataset, annotation_len=1000)
 
     return JsonResponse(result[0], safe=False)
-
-class SearchAPI(APIView):
-    def get(self, request):
-        name = request.GET.get('name', None)
-        if name is not None:
-            result = do_computation(name)
-            return Response(result)
-        else:
-            return Response("No name parameter provided", status=400)

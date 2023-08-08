@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Profile = ({data}) => {
+    console.log('Profile props:', data);
+    
+    useEffect(() => {
+        console.log('New data in Profile:', data);
+    }, [data]); // The effect depends on 'data', so it runs whenever 'data' changes.
+  
     if(!data) {
       return (
         <div className="card" style={{ width: "100%", height: "100%"}}>

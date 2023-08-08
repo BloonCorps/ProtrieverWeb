@@ -1,17 +1,33 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './MenuLayout.css';
 import DropdownMenu from './DropdownMenu';
 import AppContext from '../AppContext';
 
 const MenuLayout = () => {
   const { selectedDomains, onSelectDomain, updateSelectedDomains } = useContext(AppContext);
-  const functionalDomains = ["PDZ Domain"];
-  const motifs = ['ITIM', 'Immunoreceptor Tyrosine-based Activation Motif', 'Zinc Finger', 'Activation Loop', 'Beta-Strand'];
+  const [functionalDomains, setFunctionalDomains] = useState([]);
+  const [motifs, setMotifs] = useState([]);
 
   const [activeTab, setActiveTab] = useState('Functional Domains');
-  const [selectedRange, setSelectedRange] = useState(null);  
+  const [selectedRange, setSelectedRange] = useState(null);
   const [checkedDomains, setCheckedDomains] = useState({});
   const [checkedMotifs, setCheckedMotifs] = useState({});
+
+  useEffect(() => {
+    fetch('http://protriever.org:8000/api/domains_list/')
+      .then(response => response.json())
+      .then(data => {
+        if (data.domains) {
+          setFunctionalDomains(data.domains);
+        }
+        if (data.motifs) {
+          setMotifs(data.motifs);
+        }
+      })
+      .catch(err => {
+        console.error('Error fetching data: ', err);
+      });
+  }, []);
 
   const handleSelect = (range) => {
     setSelectedRange(range);
@@ -19,19 +35,14 @@ const MenuLayout = () => {
 
   const filterByRange = (item) => {
     if (!selectedRange) return true;
-
     const [start, end] = selectedRange.split('-');
-
     if (selectedRange === '#') return !item[0].match(/[a-z]/i);
-
     return item[0].toUpperCase() >= start && item[0].toUpperCase() <= end;
   };
 
   const handleCheckboxChange = async (event, type) => {
     const item = event.target.value;
-    console.log(event);
     if (event.target.checked) {
-      // The checkbox is now checked
       await onSelectDomain(item);
       if (type === 'domain') {
         setCheckedDomains(prevState => ({...prevState, [item]: true}));
@@ -39,8 +50,6 @@ const MenuLayout = () => {
         setCheckedMotifs(prevState => ({...prevState, [item]: true}));
       }
     } else {
-      // The checkbox is now unchecked
-      // Remove the indices corresponding to this domain/motif from selectedDomains
       const response = await fetch(`http://protriever.org:8000/api/domains/?name=${item}`);
       const result = await response.json();
       const indices = result.indices;
@@ -119,6 +128,7 @@ const MenuLayout = () => {
 };
 
 export default MenuLayout;
+
 
 
 
