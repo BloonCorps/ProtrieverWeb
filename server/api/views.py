@@ -55,16 +55,15 @@ def get_domain_indxs(request):
     return JsonResponse({"indices": indices, "proteins": proteins})
 
 def get_data(request):
-    data = cache.get('data')
+    dataset = cache.get('dataset')
     
-    if data is None:
-        dataset = load_from_disk('Protriever/src/data/processed/HFAll/9606/') #server is run from the upper directory
-        columns_to_include = ['id', 'annotation', 'alias', 'seq_len', 't_sne']
-        data = [{col: row[col] for col in columns_to_include} for row in dataset]
-        cache.set('data', data)
+    if dataset is None:
+        raw_dataset = load_from_disk('Protriever/src/data/processed/HFAll/9606/')
+        columns_to_include = ['id', 'annotation', 'alias', 'seq_len', 't_sne', 'protein_coding']
+        dataset = [{col: row[col] for col in columns_to_include} for row in raw_dataset if row['protein_coding']]
+        cache.set('dataset', dataset)
 
-    print(data[8006])
-    return JsonResponse(data, safe=False)
+    return JsonResponse(dataset, safe=False)
 
 def search_sequence(request):
     query = request.GET.get('input')
@@ -79,7 +78,8 @@ def search_sequence(request):
     index = cache.get('faiss_index')
 
     if dataset is None:
-        dataset = load_from_disk('Protriever/src/data/processed/HFAll/9606/') #server is run from the upper directory
+        dataset = load_from_disk('Protriever/src/data/processed/HFAll/9606/')
+        dataset = dataset.filter(lambda example: example['protein_coding'] == True)
         cache.set('dataset_whole', dataset)
 
     if model is None or batch_converter is None:
