@@ -4,6 +4,8 @@ import './SearchLayout.css';
 import DataTable from './DataTable';
 import LoadingIndicator from './LoadingIndicator';
 
+const backend = process.env.REACT_BACKEND_DOMAIN;
+
 class SearchLayout extends Component {
   state = {
     searchTerm: '',
@@ -20,7 +22,7 @@ class SearchLayout extends Component {
     event.preventDefault();
     this.setState({ loading: true });
     const start = performance.now();
-    const response = await fetch(`http://protriever.org:8000/api/search/?input=${this.state.searchTerm}`);
+    const response = await fetch(`http://${backend}.org:8000/api/search/?input=${this.state.searchTerm}`);
     const data = await response.json();
     const end = performance.now();
     const timeTaken = ((end - start) / 1000).toFixed(2); // calculate time taken and convert it to seconds

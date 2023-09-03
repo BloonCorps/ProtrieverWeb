@@ -5,6 +5,8 @@ import Layout from '../Layout/Layout';
 import AppContext from '../AppContext';
 import MenuLayout from './MenuLayout';
 
+const backend = process.env.REACT_BACKEND_DOMAIN;
+
 class PlotLayout extends PureComponent {
   state = {
     data: [],
@@ -26,7 +28,7 @@ class PlotLayout extends PureComponent {
   };
 
   componentDidMount() {
-    fetch('http://protriever.org:8000/api/data/')
+    fetch('http://${backend}:8000/api/data/')
       .then(response => response.json())
       .then(data => this.setState({ data }));
     window.addEventListener('resize', this.handleResize);
@@ -60,7 +62,7 @@ class PlotLayout extends PureComponent {
       onSelectDomain: async (domain) => {
         console.log(`Getting indices for domain ${domain}.`);
 
-        const response = await fetch(`http://protriever.org:8000/api/domains/?name=${domain}`);
+        const response = await fetch(`http://${domain}.org:8000/api/domains/?name=${domain}`);
 
         const result = await response.json();
         if (result.indices) {

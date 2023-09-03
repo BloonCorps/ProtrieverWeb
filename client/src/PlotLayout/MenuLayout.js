@@ -3,6 +3,8 @@ import './MenuLayout.css';
 import DropdownMenu from './DropdownMenu';
 import AppContext from '../AppContext';
 
+const backend = process.env.REACT_BACKEND_DOMAIN;
+
 const MenuLayout = () => {
   const { selectedDomains, onSelectDomain, updateSelectedDomains } = useContext(AppContext);
   const [functionalDomains, setFunctionalDomains] = useState([]);
@@ -14,7 +16,7 @@ const MenuLayout = () => {
   const [checkedMotifs, setCheckedMotifs] = useState({});
 
   useEffect(() => {
-    fetch('http://protriever.org:8000/api/domains_list/')
+    fetch('http://${domain}.org:8000/api/domains_list/')
       .then(response => response.json())
       .then(data => {
         if (data.domains) {
@@ -50,7 +52,7 @@ const MenuLayout = () => {
         setCheckedMotifs(prevState => ({...prevState, [item]: true}));
       }
     } else {
-      const response = await fetch(`http://protriever.org:8000/api/domains/?name=${item}`);
+      const response = await fetch(`http://${backend}.org:8000/api/domains/?name=${item}`);
       const result = await response.json();
       const indices = result.indices;
 
