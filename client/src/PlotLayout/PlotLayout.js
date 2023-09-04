@@ -5,7 +5,7 @@ import Layout from '../Layout/Layout';
 import AppContext from '../AppContext';
 import MenuLayout from './MenuLayout';
 
-const backend = process.env.REACT_BACKEND_DOMAIN;
+const backend = process.env.REACT_APP_BACKEND_URL;
 
 class PlotLayout extends PureComponent {
   state = {
@@ -28,10 +28,15 @@ class PlotLayout extends PureComponent {
   };
 
   componentDidMount() {
-    fetch('http://${backend}:8000/api/data/')
-      .then(response => response.json())
-      .then(data => this.setState({ data }));
-    window.addEventListener('resize', this.handleResize);
+    fetch(`${backend}/api/data/`)
+      .then(response => {
+        console.log('Response:', response);
+        return response.json();
+      })
+      .then(data => {
+        console.log('Data:', data);
+        this.setState({ data });
+      });
   }
 
   componentWillUnmount() {
@@ -62,7 +67,7 @@ class PlotLayout extends PureComponent {
       onSelectDomain: async (domain) => {
         console.log(`Getting indices for domain ${domain}.`);
 
-        const response = await fetch(`http://${domain}.org:8000/api/domains/?name=${domain}`);
+        const response = await fetch(`${backend}/api/domains/?name=${domain}`);
 
         const result = await response.json();
         if (result.indices) {
