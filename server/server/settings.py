@@ -25,7 +25,13 @@ SECRET_KEY = 'django-insecure-vrbfj^x4!t1y#bx62--h&_bxs5t8#@i5tgr^7ne@ztfb2xsf!z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['quirky-firefly-91712.pktriot.net', '96.255.194.191', 'localhost', '127.0.0.1', 'protriever.org', '156.40.252.11']
+ALLOWED_HOSTS = ['quirky-firefly-91712.pktriot.net', 
+                 '96.255.194.191', 
+                 'localhost', 
+                 '127.0.0.1', 
+                 'protriever.org', 
+                 '156.40.252.11',
+                 'django.protriever.org']
 
 # Application definition
 
@@ -53,10 +59,11 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    "https://protriever.serveo.net",
+    "https://protriever.org",
     "http://localhost",
     "http://96.255.194.191",
     "http://protriever.org",
-    "http://156.40.252.11", #seongyong's stuff
     "http://192.168.1.10:8000",
     "http://192.168.1.10",
 ]

@@ -31,8 +31,14 @@ const Navbar = () => {
               <Link className="dropdown-item" to="/search/">By Functional Domain</Link>
             </div>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/">Interactive View</a>
+          <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle" href="#" id="interactiveViewDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Interactive View
+            </a>
+            <div className="dropdown-menu dropdown-menu-left-adjust" aria-labelledby="interactiveViewDropdown">
+              <a className="dropdown-item" href="/">Canonical Proteome</a>
+              <a className="dropdown-item" href="/disordered/">Disordered Regions</a>
+            </div>
           </li>
         </ul>
       </div>

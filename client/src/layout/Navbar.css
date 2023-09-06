@@ -7,3 +7,7 @@
     color: #F5DEB3 !important;
 }
   
+.dropdown-menu-left-adjust {
+  right: 0 !important;
+  left: auto !important;
+}

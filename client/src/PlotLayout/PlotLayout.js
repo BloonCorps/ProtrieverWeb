@@ -28,16 +28,19 @@ class PlotLayout extends PureComponent {
   };
 
   componentDidMount() {
-    fetch(`${backend}/api/data/`)
+    let dataType = this.props.dataType; // Assuming dataType is part of the component's state
+    // Construct the API URL with the query parameter
+    let apiUrl = `${backend}/api/data/?input=${dataType}`;
+    console.log('Getting data from backend!')
+    
+    fetch(apiUrl)
       .then(response => {
-        console.log('Response:', response);
         return response.json();
       })
       .then(data => {
-        console.log('Data:', data);
         this.setState({ data });
       });
-  }
+  } 
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
@@ -51,7 +54,6 @@ class PlotLayout extends PureComponent {
     this.setState({ hoveredNode }, () => console.log('hoveredNode state after update:', this.state.hoveredNode));
   };  
   
-
   updateSelectedDomains = (updatedDomains) => {
     this.setState({ selectedDomains: updatedDomains });
   }
@@ -78,7 +80,7 @@ class PlotLayout extends PureComponent {
         return result.indices;
       },
 
-      updateSelectedDomains: this.updateSelectedDomains // Add this line
+      updateSelectedDomains: this.updateSelectedDomains 
     };
 
     return (

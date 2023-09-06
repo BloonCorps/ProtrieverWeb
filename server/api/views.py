@@ -12,6 +12,39 @@ from datasets import concatenate_datasets
 
 from Protriever.models.search import *
 
+from django.core.exceptions import ImproperlyConfigured
+from django.http import JsonResponse
+from django.core.cache import cache
+
+def get_data(request):
+    query = request.GET.get('input')
+    dataset = cache.get('dataset')
+    
+    if dataset is None:
+        raw_dataset = load_from_disk('Protriever/src/data/processed/HFAll/9606/')
+        raw_dataset.set_format(type='python') 
+        columns_to_include = ['id', 'annotation', 'alias', 'seq_len', 't_sne', 'protein_coding', 't_sne_disordered']
+        dataset = [{col: row[col] for col in columns_to_include} for row in raw_dataset if row['protein_coding']]
+        cache.set('dataset', dataset)
+
+    if query == "disordered":
+        # Filter the dataset to only include items where t_sne_disordered is not None
+        filtered_dataset = [row for row in dataset if row['t_sne_disordered'] is not None]
+        
+        # Delete 't_sne' and rename 't_sne_disordered' to 't_sne'
+        for row in filtered_dataset:
+            del row['t_sne']
+            row['t_sne'] = row.pop('t_sne_disordered')
+        
+        return JsonResponse(filtered_dataset, safe=False)
+        
+    elif query == 'default':
+        return JsonResponse(dataset, safe=False)
+    
+    else:
+        raise ImproperlyConfigured("Invalid query parameter.")
+
+    
 def get_domain_motifs_list(request):
     """
     Input: None
@@ -54,17 +87,6 @@ def get_domain_indxs(request):
 
     return JsonResponse({"indices": indices, "proteins": proteins})
 
-def get_data(request):
-    dataset = cache.get('dataset')
-    
-    if dataset is None:
-        raw_dataset = load_from_disk('Protriever/src/data/processed/HFAll/9606/')
-        columns_to_include = ['id', 'annotation', 'alias', 'seq_len', 't_sne', 'protein_coding']
-        dataset = [{col: row[col] for col in columns_to_include} for row in raw_dataset if row['protein_coding']]
-        cache.set('dataset', dataset)
-
-    return JsonResponse(dataset, safe=False)
-
 def search_sequence(request):
     query = request.GET.get('input')
     if type(query) is str:
@@ -73,12 +95,14 @@ def search_sequence(request):
     #model
     model = cache.get('model')
     batch_converter = cache.get('batch_converter')
+
     #data
     dataset = cache.get('dataset_whole')
     index = cache.get('faiss_index')
 
     if dataset is None:
         dataset = load_from_disk('Protriever/src/data/processed/HFAll/9606/')
+        dataset.set_format(type='python') 
         dataset = dataset.filter(lambda example: example['protein_coding'] == True)
         cache.set('dataset_whole', dataset)
 
