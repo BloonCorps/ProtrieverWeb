@@ -1,0 +1,21 @@
+.dropdown {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.dropdown .btn.btn-warning.dropdown-toggle {
+    background-color: #B59410;
+    color: white;
+    margin: -8px 0 8px 0;
+}
+
+.dropdown-menu {
+    position: absolute;
+    display: none; /* Hidden by default */
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block; /* Show the dropdown menu on hover */
+}
+

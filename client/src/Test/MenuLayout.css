@@ -1,0 +1,87 @@
+.menu-layout {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.tabs button {
+    padding: 8px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1em;
+    text-align: center;
+}
+
+.tabs button.active {
+    font-weight: bold;
+    border-bottom: 2px solid #333;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    width: 100%;
+}
+
+.dropdown-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.checkboxes {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    padding: 4px 0; /* Adjust padding as needed. This sets 4px top and bottom padding and 0 left and right */
+}
+
+input[type="checkbox"] {
+    margin-right: 0.5em;
+    position: relative;
+    top: -3px;
+}
+
+.checkboxes {
+    padding: 2px 2px 2px 0; /* top, right, bottom, left */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 16px 16px 0; /* top, right, bottom, left */
+    width: 100%;
+}
+
+.dropdown-container,
+.checkboxes {
+    padding-left: 0; /* This sets left padding to 0 for both dropdown-container and checkboxes */
+}
+
+
+

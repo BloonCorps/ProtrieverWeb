@@ -23,7 +23,7 @@ def get_data(request):
     if dataset is None:
         raw_dataset = load_from_disk('Protriever/src/data/processed/HFAll/9606/')
         raw_dataset.set_format(type='python') 
-        columns_to_include = ['id', 'annotation', 'alias', 'seq_len', 't_sne', 'protein_coding', 't_sne_disordered']
+        columns_to_include = ['id', 'GO', 'annotation', 'alias', 'seq_len', 't_sne', 'protein_coding', 't_sne_disordered']
         dataset = [{col: row[col] for col in columns_to_include} for row in raw_dataset if row['protein_coding']]
         cache.set('dataset', dataset)
 

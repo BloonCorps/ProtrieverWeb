@@ -25,6 +25,8 @@ const Profile = ({data}) => {
         <div className="card" style={{ width: "100%", height: "100%"}}>
             <h5 className="card-header">Name: {data.alias}</h5>
             <div className="card-body">
+                <p className="card-text"> GO: {JSON.stringify(data.GO)}</p>
+
                 <p className="card-text">ID: {data.id}</p>
                 <p className="card-text">Annotation: {data.annotation}</p>
                 <p className="card-text">Seq Len: {data.seq_len}</p>

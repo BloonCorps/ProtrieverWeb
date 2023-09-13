@@ -21,8 +21,8 @@ class PlotLayout extends PureComponent {
   handleResize = () => {
     this.setState({
       menuWidth: window.innerWidth * 0.20,
-      plotWidth: window.innerWidth * 0.55,
-      profileWidth: window.innerWidth * 0.25,
+      plotWidth: window.innerWidth * 0.50,
+      profileWidth: window.innerWidth * 0.30,
       plotHeight: window.innerHeight * 0.9
     });
   };
@@ -61,7 +61,7 @@ class PlotLayout extends PureComponent {
   render() {
     console.log('hoveredNode in PlotLayout:', this.state.hoveredNode);
 
-    const { data, menuWidth, plotWidth, profileWidth, plotHeight, hoveredNode, proteinData, selectedDomains } = this.state;
+    const { data, menuWidth, plotWidth, profileWidth, plotHeight, hoveredNode, selectedDomains } = this.state;
     
     const contextValue = {
       selectedDomains: selectedDomains,
